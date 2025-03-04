@@ -60,6 +60,59 @@ class TestApp:
         unsuccessful_login_img_path = self.paths['Expected-Results']['unsuccessful_login']
         assert pyautogui.locateOnScreen(f'{os.path.abspath(unsuccessful_login_img_path)}', confidence=0.8) is not None
 
+    def test_empty_username(self):
+        username = ''
+        password = 'password'
+        self.enter_credentials(username, password)
+        # Verify unsuccessful login
+        unsuccessful_login_img_path = self.paths['Expected-Results']['unsuccessful_login']
+        assert pyautogui.locateOnScreen(f'{os.path.abspath(unsuccessful_login_img_path)}', confidence=0.8) is not None
+
+
+    def test_empty_password(self):
+        username = 'testuser'
+        password = ''
+        self.enter_credentials(username, password)
+        # Verify unsuccessful login
+        unsuccessful_login_img_path = self.paths['Expected-Results']['unsuccessful_login']
+        assert pyautogui.locateOnScreen(f'{os.path.abspath(unsuccessful_login_img_path)}', confidence=0.8) is not None
+
+
+    def test_case_sensitivity_username(self):
+        username = 'Testuser'
+        password = 'password'
+        self.enter_credentials(username, password)
+        # Verify unsuccessful login
+        unsuccessful_login_img_path = self.paths['Expected-Results']['unsuccessful_login']
+        assert pyautogui.locateOnScreen(f'{os.path.abspath(unsuccessful_login_img_path)}', confidence=0.8) is not None
+
+    def test_case_sensitivity_password(self):
+        username = 'testuser'
+        password = 'passworD'
+        self.enter_credentials(username, password)
+        # Verify unsuccessful login
+        unsuccessful_login_img_path = self.paths['Expected-Results']['unsuccessful_login']
+        assert pyautogui.locateOnScreen(f'{os.path.abspath(unsuccessful_login_img_path)}', confidence=0.8) is not None
+
+
+    def test_special_characters_username(self):
+        username = 'test@user'
+        password = 'password'
+        self.enter_credentials(username, password)
+        # Verify unsuccessful login
+        unsuccessful_login_img_path = self.paths['Expected-Results']['unsuccessful_login']
+        assert pyautogui.locateOnScreen(f'{os.path.abspath(unsuccessful_login_img_path)}', confidence=0.8) is not None
+
+
+    def test_special_characters_password(self):
+        username = 'testuser'
+        password = ' password '
+        self.enter_credentials(username, password)
+        # Verify unsuccessful login
+        unsuccessful_login_img_path = self.paths['Expected-Results']['unsuccessful_login']
+        assert pyautogui.locateOnScreen(f'{os.path.abspath(unsuccessful_login_img_path)}', confidence=0.8) is not None
+
+
     def teardown_method(self):
         # Close the application after each test
         ok_btn_path = self.paths['Assets']['popup_ok_button']
