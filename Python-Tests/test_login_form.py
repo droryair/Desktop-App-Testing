@@ -4,6 +4,7 @@ import time
 import os
 import json
 
+
 class TestApp:
 
     @classmethod
@@ -13,29 +14,26 @@ class TestApp:
             cls.paths = json.load(file)
 
     def setup_method(self):
-        # Open the application
+        # Open the application before each test
         relative_path = self.paths['Login-Form-App']
         absolute_path = os.path.abspath(relative_path)
-
         pyautogui.hotkey('win','r')
         pyautogui.write(f'python {absolute_path}')
         pyautogui.press('enter')
         time.sleep(2)   
 
     def enter_credentials(self, username, password):
-        # Enter credentials to the corresponding input fields
+        # Enter credentials to the app's corresponding input fields
         pyautogui.press('tab')
         pyautogui.write(username)
         pyautogui.press('tab')
         pyautogui.write(password)
         time.sleep(0.5)
-
         # Click the 'Login' button
         login_btn_path = self.paths['Assets']['login_button']
         login_button_location = pyautogui.locateOnScreen(f'{os.path.abspath(login_btn_path)}', confidence=0.8)
         if login_button_location is not None:
             pyautogui.click(login_button_location)
-
 
     def test_valid_login(self):
         username = 'testuser'
@@ -63,7 +61,7 @@ class TestApp:
         assert pyautogui.locateOnScreen(f'{os.path.abspath(unsuccessful_login_img_path)}', confidence=0.8) is not None
 
     def teardown_method(self):
-        # Close the app
+        # Close the application after each test
         ok_btn_path = self.paths['Assets']['popup_ok_button']
         close_btn_path = self.paths['Assets']['form_exit_button']
         time.sleep(1)
