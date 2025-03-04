@@ -4,14 +4,15 @@ import time
 import os
 import json
 
-class Test:
+class TestApp:
 
-    def setUp(self):
-        # Load paths.json file
+    @classmethod
+    def setup_class(cls):
+        # Load paths.json file once before all tests.
         with open('Python-Tests/paths.json','r') as file:
-            self.paths = json.load(file)
+            cls.paths = json.load(file)
 
-    def setup(self):
+    def setup_method(self):
         # Open the application
         relative_path = self.paths['Login-Form-App']
         absolute_path = os.path.abspath(relative_path)
@@ -61,7 +62,7 @@ class Test:
         unsuccessful_login_img_path = self.paths['Expected-Results']['unsuccessful_login']
         assert pyautogui.locateOnScreen(f'{os.path.abspath(unsuccessful_login_img_path)}', confidence=0.8) is not None
 
-    def teardown(self):
+    def teardown_method(self):
         # Close the app
         ok_btn_path = self.paths['Assets']['popup_ok_button']
         close_btn_path = self.paths['Assets']['form_exit_button']
@@ -75,18 +76,4 @@ class Test:
 
 
 if __name__=='__main__':
-    app_test = Test()
-
-    app_test.setUp()
-    
-    # app_test.setup()
-    # app_test.test_valid_login()
-    # app_test.teardown()
-    
-    app_test.setup()
-    app_test.test_invalid_username()
-    app_test.teardown()
-    
-    app_test.setup()
-    app_test.test_invalid_password()
-    app_test.teardown()
+    pytest.main()
