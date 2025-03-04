@@ -1,0 +1,12 @@
+{
+    "Login-Form-App":"../Desktop-App-Testing/Desktop-App/login_form.py",
+    "Assets":{
+        "login_button":"Python-Tests/Assets/login_button.png",
+        "popup_ok_button":"Python-Tests/Assets/popup_ok_button.png",
+        "form_exit_button":"Python-Tests/Assets/form_exit_button.png"
+    },
+    "Expected-Results":{
+        "successful_login":"Python-Tests/Expected-Results/successful_login.png",
+        "unsuccessful_login":"Python-Tests/Expected-Results/unsuccessful_login.png"
+    }
+}
